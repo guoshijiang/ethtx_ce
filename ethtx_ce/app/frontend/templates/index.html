@@ -1,24 +1,9 @@
-<!--
-  ~ Copyright 2021 DAI Foundation
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     {% include './partials/headtags.html' %}
     <link href="/static/hosted.css" rel="stylesheet">
-
     <title>EthDecoder</title>
     <style>
         html {
@@ -76,28 +61,6 @@
             margin-bottom: 30px;
             font-weight: 700;
             line-height: 1;
-        }
-
-        .panels {
-            display: grid;
-            grid-gap: 32px;
-            margin-top: 30px;
-            margin-bottom: 32px;
-        }
-
-        .panel-container {
-            background-color: var(--background-muted);
-            border-radius: 8px;
-            padding: 24px 34px 8px 34px;
-            font-size: 20px;
-            color: var(--text-alt);
-        }
-
-        .panel-container h2 {
-            font-size: 22px;
-            font-weight: 500;
-            margin: 0;
-            color: var(--text);
         }
 
         .input {
@@ -172,75 +135,28 @@
 <body>
 <div class="container">
     <div class="container-title">
-        <span class="main-title">EthTx Transaction Decoder</span>
+        <span class="main-title">EVM 交易分析工具</span>
     </div>
     <form action="/" method="GET" onsubmit="return onSubmit(this)">
         <div>
-            <label for="net">Network</label>
+            <label for="net">区块链网络</label>
             <select class="input select" id="net">
                 <option value="mainnet">ETH mainnet</option>
-                <option value="goerli">Goerli testnet</option>
-                <option value="rinkeby">Rinkeby testnet</option>
+                <option value="bsc">BSC mainnet</option>
+                <option value="arbi">Arbitrum</option>
             </select>
         </div>
         <div>
-            <label for="tx">Tx Hash</label>
+            <label for="tx">交易Hash</label>
             <input class="input" size="66" type="text" id="tx"
                    oninput="handleValueChange()"
                    onchange="handleValueChange()">
             <div class="error-msg" id="error_hash"></div>
         </div>
         <div class="tx-submit">
-            <input id="tx_submit" type="submit" value="Decode now">
+            <input id="tx_submit" type="submit" value="开始分析">
         </div>
-
     </form>
-    <div class="panels">
-        <div class="panel-container">
-            <h2>About EthTx</h2>
-            <p>EthTx is an open source decoder of blockchain transactions that is made freely available to the Ethereum
-                Community as a Python library in public PyPi index (<a id="pypi" href="https://pypi.org/project/EthTx/"
-                                                                       target="_blank" rel="noopener noreferrer"
-                                                                       class="link">project page</a>).</p>
-            <p>Everybody is invited to contribute to the codebase (<a id="git-ethtx"
-                                                                      href="https://github.com/EthTx/ethtx"
-                                                                      target="_blank" rel="noopener noreferrer"
-                                                                      class="link">GitHub</a>) via Pull Request or
-                Issues and anyone can launch their own instances of EthTx.</p>
-            {% if ethtx_version %}
-                <p id="ethtx_version" class="version">
-                    Version:
-                    <a class="link" id="pypi-version"
-                       href=https://pypi.org/project/EthTx/{{ ethtx_version }}/ target="_blank"
-                       rel="noopener noreferrer">{{ ethtx_version }}</a>
-                </p>
-            {%- endif -%}
-        </div>
-        <div class="panel-container">
-            <h2>About this implementation</h2>
-            <p>This instance of EthTx is hosted by Token Flow Insights SA. The team that developed EthTx and the current
-                maintainer of the open source repository. For more information about us, please visit
-                <a href="https://tokenflow.live/" class="link" target="_blank" rel="noopener noreferrer">Token Flow</a>.
-            </p>
-            <p>The source code of this Community Edition of EthTx is also free and open source
-                (<a href="https://github.com/EthTx/ethtx_ce" id="git-ethtx-ce" class="link" target="_blank"
-                    rel="noopener noreferrer">GitHub</a>).
-            </p>
-            <p>Use of this implementation is under the <a href="https://tokenflow.live/terms" class="link"
-                                                          target="_blank"
-                                                          rel="noopener noreferrer">Terms of Service</a> and <a
-                    href="https://tokenflow.live/privacy" class="link" target="_blank" rel="noopener noreferrer">Privacy
-                Policy</a>.</p>
-            {% if ethtx_ce_version %}
-                <p id="ethtx_ce_version" class="version">
-                    Version:
-                    <a class="link" id="git-ethtx-ce-2" target="_blank" rel="noopener noreferrer"
-                       href={{ ethtx_ce_version }}>ethtx_ce</a>
-                </p>
-            {%- endif -%}
-        </div>
-    </div>
-    {% include './partials/footer.html' %}
 </div>
 
 <script type="text/javascript">
