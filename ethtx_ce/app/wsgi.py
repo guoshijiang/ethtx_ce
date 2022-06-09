@@ -21,18 +21,17 @@ from . import frontend, api
 app = Flask(__name__)
 
 ethtx_config = EthTxConfig(
-    mongo_connection_string=os.getenv("MONGO_CONNECTION_STRING"),
-    etherscan_api_key=os.getenv("ETHERSCAN_KEY"),
+    mongo_connection_string="mongomock://localhost/ethtx",
+    etherscan_api_key="W972DC11QYVEWRSWCRYHTT4H362PK43P8N",
     web3nodes={
-        "mainnet": dict(hook=os.getenv("MAINNET_NODE_URL", ""), poa=False),
-        "goerli": dict(hook=os.getenv("GOERLI_NODE_URL", ""), poa=True),
-        "rinkeby": dict(hook=os.getenv("RINKEBY_NODE_URL", ""), poa=True),
+        "mainnet": {
+            "hook": "https://dark-black-meadow.quiknode.pro/bcaa5550a8ecfe4d2c22f5d314cda3c40d129e88",
+            "poa": False
+        }
     },
     default_chain="mainnet",
     etherscan_urls={
         "mainnet": "https://api.etherscan.io/api",
-        "goerli": "https://api-goerli.etherscan.io/api",
-        "rinkeby": "https://api-rinkeby.etherscan.io/api",
     },
 )
 
@@ -43,6 +42,5 @@ app.wsgi_app = DispatcherMiddleware(
     {"/api": api.create_app(engine=ethtx, settings_override=EthTxConfig)},
 )
 
-# ethtx_ce/ as Source Root
 if __name__ == "__main__":
     app.run()
